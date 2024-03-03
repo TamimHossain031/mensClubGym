@@ -2,7 +2,7 @@ import Hero from "./components/Hero/Hero";
 import './App.css'
 function App() {
   return (
-    <div className="App px-10">
+    <div className="App">
       <Hero />
     </div>
   );

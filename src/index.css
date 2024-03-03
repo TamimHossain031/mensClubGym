@@ -4,7 +4,7 @@
 
 /* group Utilitie */
 .btn {
-    @apply border  px-4 py-1 rounded-full text-sm  font-semibold sm:dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white hover:border-transparent dark:focus:ring-offset-gray-800 m-1
+    @apply rounded-sm mt-2 py-2 px-4 tracking-wider font-bold border border-transparent transition-[300ms]
 }
 
 .btn-purple{
