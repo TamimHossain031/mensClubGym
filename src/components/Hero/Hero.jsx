@@ -1,4 +1,6 @@
 import Header from "../Header/Header";
+import Heart from "../../assets/heart.png"
+import Calories from "../../assets/calories.png"
 export default function Hero() {
   return (
     <div className="hero flex flex-col w-dvw h-screen ">
@@ -41,16 +43,7 @@ export default function Hero() {
             <span>fitness<br></br> programs</span>
           </div>
         </div>
-        <div className="mx-10 mt-5">
-          <button className="bg-[--orange] text-white btn">Get Started</button>
-          {/* <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
-            <img src={Calories} alt="" width={40} />
-            <div className="flex flex-col">
-              <span className="text-[--gray]">Calories burned</span>
-              <span className="text-white">220 kcal</span>
-            </div>
-          </div> */}
-        </div>
+        
 
         {/* <img src={HeroBack} alt="" className="absolute right-1 top-11 z-9" />
         <img
@@ -61,14 +54,25 @@ export default function Hero() {
       </section>
       {/* right side */}
       <section className="right-h basis-1/4 relative">
-        {/* <button className="btn bg-white absolute right-[50px] top-5">
+        <button className="btn bg-white absolute right-[50px] top-5">
           Join Now
-        </button> */}
-        {/* <div className="bg-[--darkgray] w-fit flex flex-col p-2 items-start absolute top-[7rem] right-[5rem] rounded-lg">
+        </button>
+        <div className="bg-[--darkgray] w-fit flex flex-col p-2 items-start absolute top-[7rem] right-[5rem] rounded-lg">
           <img src={Heart} alt="" width={30} />
           <span className="text-[--gray]">Heart Rate</span>
           <span className="text-white"> 116 bpm</span>
-        </div> */}
+        </div>
+
+        <div className="mx-10 mt-5">
+          <button className="bg-[--orange] text-white btn">Get Started</button>
+          <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
+            <img src={Calories} alt="" width={40} />
+            <div className="flex flex-col">
+              <span className="text-[--gray]">Calories burned</span>
+              <span className="text-white">220 kcal</span>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
