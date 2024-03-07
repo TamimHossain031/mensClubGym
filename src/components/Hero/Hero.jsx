@@ -41,7 +41,7 @@ export default function Hero() {
             <span>fitness<br></br> programs</span>
           </div>
         </div>
-        <div className="mx-10">
+        <div className="mx-10 mt-5">
           <button className="bg-[--orange] text-white btn">Get Started</button>
           {/* <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
             <img src={Calories} alt="" width={40} />
@@ -60,7 +60,7 @@ export default function Hero() {
         /> */}
       </section>
       {/* right side */}
-      <section className="right-h basis-1/4 relative bg-orange-600">
+      <section className="right-h basis-1/4 relative">
         {/* <button className="btn bg-white absolute right-[50px] top-5">
           Join Now
         </button> */}
