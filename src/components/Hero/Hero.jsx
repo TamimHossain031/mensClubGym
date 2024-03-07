@@ -1,20 +1,18 @@
 import Header from "../Header/Header";
-import Heart from "../../assets/heart.png"
-
 export default function Hero() {
   return (
-    <div className="hero flex justify-between w-full">
+    <div className="hero flex flex-col w-dvw h-screen ">
       {/* left-side */}
-      <section className="Left-h basis-3/4 pb-8 px-10">
+      <section className="Left-h w-dvw pb-[2%] px-[4%] relative">
         <Header />
 
-        <div className="the-best-add  w-fit bg-[#363d42] mt-20 py-4 px-7 rounded-full text-white uppercase text-md tracking-wider relative flex items-center justify-start ">
-          <div className="absolute bg-orange-600 w-[5.4rem] h-[80%] left-[8px] rounded-full z-0"></div>
+        <div className="the-best-add  w-fit bg-[#363d42] mt-20 py-2 px-7 rounded-full text-white uppercase text-[10px] tracking-wider relative flex items-center justify-start ">
+          <div className="absolute bg-orange-600 w-[3rem] h-[80%] left-[8px] rounded-full z-0"></div>
           <span className="z-10">the best fitness club in town</span>
         </div>
 
         {/* Hero Heading */}
-        <div className="flex flex-col gap-1 uppercase text-[4.5rem] font-bold text-white">
+        <div className="flex flex-col mt-2 gap-1 uppercase text-[1.5rem] font-bold text-white z-10">
           <div>
             <span className="stroke-text">Shape</span>
             <span> Your</span>
@@ -22,38 +20,55 @@ export default function Hero() {
           <div>
             <span> Ideal body</span>
           </div>
-          <span className="text-[1rem] font-extralight normal-case tracking-wide width-[80%]">
+          <span className="text-[0.6rem] font-extralight normal-case tracking-wide width-[80%]">
             In here we will help you to shape and build your ideal body and live
             up your life to fullest
           </span>
         </div>
 
         {/* figure */}
-        <div className="flex gap-4">
+        <div className="flex gap-1 figure">
           <div className="flex flex-col">
-            <span className="text-white text-[2rem]">+75</span>
-            <span className="text-[--gray] uppercase">expert coachs</span>
+            <span>+75</span>
+            <span>expert coachs</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-white text-[2rem]">+770</span>
-            <span className="text-[--gray] uppercase">members joined</span>
+            <span>+770</span>
+            <span>members joined</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-white text-[2rem]">+30</span>
-            <span className="text-[--gray] uppercase">fitness programs</span>
+            <span>+30</span>
+            <span>fitness programs</span>
           </div>
         </div>
-        <button className="bg-[--orange] text-white btn">
-          Get Started
-        </button>
+        <div className="flex justify-between flex-shrink-0	mx-10">
+          <button className="bg-[--orange] text-white btn">Get Started</button>
+          {/* <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
+            <img src={Calories} alt="" width={40} />
+            <div className="flex flex-col">
+              <span className="text-[--gray]">Calories burned</span>
+              <span className="text-white">220 kcal</span>
+            </div>
+          </div> */}
+        </div>
+
+        {/* <img src={HeroBack} alt="" className="absolute right-1 top-11 z-9" />
+        <img
+          src={HeroImg}
+          alt=""
+          className="absolute right-[-100px] top-[50%] w-52 z-10"
+        /> */}
       </section>
       {/* right side */}
       <section className="right-h basis-1/4 relative bg-orange-600">
-        <button className="btn bg-white absolute right-[50px] top-5">Join Now</button>
-        <div className="bg-[--darkgray] width-fit">
-            <img src={Heart} alt="" />
-            <span>Heart Rate</span><span> 116 bpm</span>
-        </div>
+        {/* <button className="btn bg-white absolute right-[50px] top-5">
+          Join Now
+        </button> */}
+        {/* <div className="bg-[--darkgray] w-fit flex flex-col p-2 items-start absolute top-[7rem] right-[5rem] rounded-lg">
+          <img src={Heart} alt="" width={30} />
+          <span className="text-[--gray]">Heart Rate</span>
+          <span className="text-white"> 116 bpm</span>
+        </div> */}
       </section>
     </div>
   );

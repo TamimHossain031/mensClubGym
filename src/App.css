@@ -35,3 +35,7 @@
   -webkit-text-stroke-color:white;
 
 }
+.figure div span::nth-child(1){
+  color:red;
+  font-size:2rem
+}
