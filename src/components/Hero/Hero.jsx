@@ -3,16 +3,16 @@ export default function Hero() {
   return (
     <div className="hero flex flex-col w-dvw h-screen ">
       {/* left-side */}
-      <section className="Left-h w-dvw pb-[2%] px-[4%] relative">
+      <section className="Left-h w-dvw pb-[2%] px-[4%] relative text-center">
         <Header />
 
-        <div className="the-best-add  w-fit bg-[#363d42] mt-20 py-2 px-7 rounded-full text-white uppercase text-[10px] tracking-wider relative flex items-center justify-start ">
+        <div className="the-best-add w-fit bg-[#363d42] mx-auto  mt-10 py-2 px-7 rounded-full text-white uppercase text-[10px] tracking-wider relative flex items-center justify-start">
           <div className="absolute bg-orange-600 w-[3rem] h-[80%] left-[8px] rounded-full z-0"></div>
           <span className="z-10">the best fitness club in town</span>
         </div>
 
         {/* Hero Heading */}
-        <div className="flex flex-col mt-2 gap-1 uppercase text-[1.5rem] font-bold text-white z-10">
+        <div className="flex flex-col mt-2 gap-1 uppercase text-[1.5rem] font-bold text-white z-10 tracking-[0.3rem]">
           <div>
             <span className="stroke-text">Shape</span>
             <span> Your</span>
@@ -27,21 +27,21 @@ export default function Hero() {
         </div>
 
         {/* figure */}
-        <div className="flex gap-1 figure">
-          <div className="flex flex-col">
+        <div className="flex gap-3 figure justify-center mt-5">
+          <div>
             <span>+75</span>
-            <span>expert coachs</span>
+            <span>expert <br></br> coachs</span>
           </div>
-          <div className="flex flex-col">
+          <div>
             <span>+770</span>
-            <span>members joined</span>
+            <span>members<br></br> joined</span>
           </div>
-          <div className="flex flex-col">
+          <div>
             <span>+30</span>
-            <span>fitness programs</span>
+            <span>fitness<br></br> programs</span>
           </div>
         </div>
-        <div className="flex justify-between flex-shrink-0	mx-10">
+        <div className="mx-10">
           <button className="bg-[--orange] text-white btn">Get Started</button>
           {/* <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
             <img src={Calories} alt="" width={40} />

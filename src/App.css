@@ -35,7 +35,15 @@
   -webkit-text-stroke-color:white;
 
 }
-.figure div span::nth-child(1){
-  color:red;
-  font-size:2rem
+.figure div{
+  display:flex;
+  flex-direction:column;
+  
+}
+
+.figure div span:nth-child(1){
+  color:#fff
+}
+.figure div span:nth-child(2){
+  color:var(--gray)
 }
