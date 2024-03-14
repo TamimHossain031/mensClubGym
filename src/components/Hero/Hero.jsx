@@ -1,9 +1,10 @@
+import Calories from "../../assets/calories.png";
+import Heart from "../../assets/heart.png";
+import HeroImg from "../../assets/hero_image.png";
 import Header from "../Header/Header";
-import Heart from "../../assets/heart.png"
-import Calories from "../../assets/calories.png"
 export default function Hero() {
   return (
-    <div className="hero flex flex-col w-dvw h-screen ">
+    <div className="hero flex flex-col w-dvw min-h-dvh ">
       {/* left-side */}
       <section className="Left-h w-dvw pb-[2%] px-[4%] relative text-center">
         <Header />
@@ -32,18 +33,23 @@ export default function Hero() {
         <div className="flex gap-3 figure justify-center mt-5">
           <div>
             <span>+75</span>
-            <span>expert <br></br> coachs</span>
+            <span>
+              expert <br></br> coachs
+            </span>
           </div>
           <div>
             <span>+770</span>
-            <span>members<br></br> joined</span>
+            <span>
+              members<br></br> joined
+            </span>
           </div>
           <div>
             <span>+30</span>
-            <span>fitness<br></br> programs</span>
+            <span>
+              fitness<br></br> programs
+            </span>
           </div>
         </div>
-        
 
         {/* <img src={HeroBack} alt="" className="absolute right-1 top-11 z-9" />
         <img
@@ -53,24 +59,27 @@ export default function Hero() {
         /> */}
       </section>
       {/* right side */}
-      <section className="right-h basis-1/4 relative">
+      <section className="right-h basis-1/4 relative bg">
         <button className="btn bg-white absolute right-[50px] top-5">
           Join Now
         </button>
-        <div className="bg-[--darkgray] w-fit flex flex-col p-2 items-start absolute top-[7rem] right-[5rem] rounded-lg">
-          <img src={Heart} alt="" width={30} />
-          <span className="text-[--gray]">Heart Rate</span>
-          <span className="text-white"> 116 bpm</span>
-        </div>
 
         <div className="mx-10 mt-5">
           <button className="bg-[--orange] text-white btn">Get Started</button>
-          <div className="bg-[--caloryCard] flex w-fit p-2 gap-2">
+          <div className="bg-[--caloryCard] flex w-fit p-2 gap-2 mt-5">
             <img src={Calories} alt="" width={40} />
             <div className="flex flex-col">
               <span className="text-[--gray]">Calories burned</span>
               <span className="text-white">220 kcal</span>
             </div>
+          </div>
+        </div>
+        <div className="relative w-full flex justify-center my-[4rem]">
+          <img  className=" "  src={HeroImg} alt="" width={120} />
+          <div className="bg-[--darkgray] w-fit flex flex-col p-2 items-start absolute top-[1rem] right-[1rem] rounded-lg">
+            <img src={Heart} alt="" width={30} />
+            <span className="text-[--gray]">Heart Rate</span>
+            <span className="text-white"> 116 bpm</span>
           </div>
         </div>
       </section>
