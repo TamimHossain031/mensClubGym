@@ -9,8 +9,8 @@ export default function Footer(){
                 </div>
                 <div className="text-white">
                     <h1>Contact</h1>
-                    <p>Phone:</p>
-                    <p>Email:</p>
+                    <p>Phone : 01677524484</p>
+                    <p>Email:mdmipukc@gmail.com</p>
 
                 </div>
             </section>
