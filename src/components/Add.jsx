@@ -85,7 +85,7 @@ export default function Add() {
           required
           errors={errors?.mother}
         />
-        <div className="flex justify-between mt-2">
+        
           <Input
             type="date"
             label="birth"
@@ -100,7 +100,7 @@ export default function Add() {
             required
             errors={errors?.birth}
           />
-        </div>
+        
 
         <Input
           type="number"
