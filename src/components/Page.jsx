@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import Home from "./Home";
 import Add from "./Add";
 import ShowData from "./Show";
+
 export default function Page() {
   return <>
   <BrowserRouter>
@@ -12,6 +13,7 @@ export default function Page() {
           <Route index element={<Home />} />
           <Route path="add" element={<Add />} />
           <Route path="show" element={<ShowData />} />
+         
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>
       </Routes>

@@ -1,11 +1,14 @@
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Utility/Input";
-import {useState,useRef} from 'react';
-import { imgDb } from "./Utility/firebase";
-import{ref,getDownloadURL,uploadBytesResumable} from 'firebase/storage';
+import { imgDb,addData } from "./Utility/firebase";
+import { useNavigate } from "react-router-dom";
 export default function Add() {
-   const imgEl = useRef(null);
-   const btn = useRef('');
+  const navigate = useNavigate();
+  const imgEl = useRef(null);
+  const btn = useRef("");
+
   const {
     register,
     handleSubmit,
@@ -13,45 +16,47 @@ export default function Add() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-  const date = new Date().toDateString();
-  if(imgEl.current.value == ''){alert('please upload image')}
-   const imgRef = ref(imgDb,`files/${crypto.randomUUID()}`);   
+    const date = new Date().toDateString();
+    if (imgEl.current.value == "") {
+    } else {
+      const imgRef = ref(imgDb, `files/${crypto.randomUUID()}`);
 
-   const uploadTask = uploadBytesResumable(imgRef,imgEl.current);
-   uploadTask.on('state_changed', 
-   (snapshot) => {  
-    console.log(btn.current.value = 'Loading...' );
-     switch (snapshot.state) {
-       case 'paused':
-         console.log('Upload is paused');
-         break;
-       case 'running':
-        console.log(btn.current.value = 'Loading...' );
-        
-         break;
-     }
-   }, 
-   (error) => {
-      console.log(error)
-   }, 
-   () => {
-    
-     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log(btn.current.value = 'Success' );
-       console.log({...data,downloadURL,date});
-     });
-   }
- );
-  
-  }
+      const uploadTask = uploadBytesResumable(imgRef, imgEl.current);
 
- 
-  
-  const upload = (e)=>{
-   imgEl.current = e.target.files[0];    
-  }
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          btn.current.value = "Loading...";
+          switch (snapshot.state) {
+            case "paused":
+             btn.current.value = "Upload is paused";
+              break;
+            case "running":
+              btn.current.value = "Loading...";
 
- 
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            btn.current.value = "Success";
+           
+            let result = addData({ ...data, downloadURL, date }).then(result=>navigate('/'))
+            
+            
+          });
+        }
+      );
+    }
+  };
+
+  const upload = (e) => {
+    imgEl.current = e.target.files[0];
+  };
+
   return (
     <div className="min-h-[100dvh] py-4">
       <form
@@ -80,13 +85,23 @@ export default function Add() {
           required
           errors={errors?.mother}
         />
-        <Input
-          type="date"
-          label="birth"
-          register={register}
-          required
-          errors={errors?.birth}
-        />
+        <div className="flex justify-between mt-2">
+          <Input
+            type="date"
+            label="birth"
+            register={register}
+            required
+            errors={errors?.birth}
+          />
+          <Input
+            type="number"
+            label="Fee"
+            register={register}
+            required
+            errors={errors?.birth}
+          />
+        </div>
+
         <Input
           type="number"
           label="weight"
@@ -130,13 +145,22 @@ export default function Add() {
           errors={errors?.occupation}
         />
 
-        <select {...register("month")} className="bg-transparent">
-          <option className='text-black' value="3">3 Months</option>
-          <option className='text-black' value="6">6 Months</option>
-          <option className='text-black' value="12">1 Year</option>
+        <select {...register("month")} className="bg-transparent my-2">
+          <option className="text-black" value="1">
+            1 Month
+          </option>
+          <option className="text-black" value="3">
+            3 Months
+          </option>
+          <option className="text-black" value="6">
+            6 Months
+          </option>
+          <option className="text-black" value="12">
+            1 Year
+          </option>
         </select>
 
-       <input type="file" name='file' ref={imgEl} onChange={upload}/>
+        <input type="file" name="file" ref={imgEl} onChange={upload} />
 
         <input
           className="border w-fit m-auto px-4 py-2 rounded-xl mt-4 cursor-pointer"
