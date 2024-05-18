@@ -33,9 +33,10 @@ const addData = async (data) => {
     let newid = result + 1;
 
     
-    setDoc(doc(db, "client", newid.toString()), {
+    setDoc(doc(db, "client", newid.toString()),{
       ...data,
       timestamp: serverTimestamp(),
+      id:newid
     }).then((restult) => {
       return true;
     });
@@ -51,4 +52,11 @@ const getId = async () => {
   return id.length == 0 ? 1000 : Math.max(...id);
 };
 
-export { addData, imgDb };
+const getData = async()=>{
+  const allData = await getDocs(collection(db, "client")).then((data) => {
+    return data;
+  });
+  return allData;
+}
+
+export { addData, imgDb,getData };

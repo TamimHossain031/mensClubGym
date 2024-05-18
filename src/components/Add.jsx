@@ -161,6 +161,9 @@ export default function Add() {
         </select>
 
         <input type="file" name="file" ref={imgEl} onChange={upload} />
+        <div>
+          
+        </div>
 
         <input
           className="border w-fit m-auto px-4 py-2 rounded-xl mt-4 cursor-pointer"
