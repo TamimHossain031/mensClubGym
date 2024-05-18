@@ -6,6 +6,7 @@ import {
   getFirestore,
   serverTimestamp,
   setDoc,
+  updateDoc
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -36,7 +37,8 @@ const addData = async (data) => {
     setDoc(doc(db, "client", newid.toString()),{
       ...data,
       timestamp: serverTimestamp(),
-      id:newid
+      id:newid,
+      payments:[]
     }).then((restult) => {
       return true;
     });
@@ -59,4 +61,14 @@ const getData = async()=>{
   return allData;
 }
 
-export { addData, imgDb,getData };
+const updatePayment=async(id,data)=>{
+  console.log(id,data);
+  const documentRef = doc(db, "client",id.toString());
+  await updateDoc(documentRef,{    
+    payments:data
+  }).then(res=> console.log('success'))
+
+
+}
+
+export { addData, imgDb,getData,updatePayment };
