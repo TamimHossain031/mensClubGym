@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db, updatePayment } from "../components/Utility/firebase";
@@ -6,27 +6,27 @@ import MonthInput from "./Utility/MonthInput";
 export default function AddMonth() {
   const { id } = useParams();
   const [data, setData] = useState();
+  const [feeUpdate, setFeeUpdate] = useState("");
   let idRef = id.split(",");
   let month = [];
   let paymentData = "";
   const year = new Date().getFullYear();
   const handleData = (name, paid) => {
-    month = data;
-    console.log();
+    month = data?.payments;
 
     if (!paid) {
       const filterd = month.filter((single) => single !== name);
       month = filterd;
       updateData(month);
-    } else if (data.includes(name) == false) {
+    } else if (data?.payments.includes(name) == false) {
       month.push(name);
       updateData(month);
     }
   };
 
-  const fetchData = async () => {
-    const docSnap = await getDoc(doc(db, "client", idRef[0])).then((res) => {
-      setData(res.data().payments);
+  const fetchData = () => {
+    const docSnap = onSnapshot(doc(db, "client", idRef[0]), (doc) => {
+      setData(doc.data());
     });
   };
 
@@ -38,9 +38,20 @@ export default function AddMonth() {
     updatePayment(idRef[0], month).then((res) => fetchData());
   };
 
+  const addFee = async (e) => {
+    let updateFee = Number(data.Fee) + Number(feeUpdate);
+
+    const washingtonRef = doc(db, "client", data?.id.toString());
+    await updateDoc(washingtonRef, {
+      Fee: updateFee.toString(),
+    }).then((res) => setFeeUpdate(""));
+  };
+
   return (
-    <div className="text-white min-h-[100dvh]">
-      <h1 className="text-xl mb-4">Add {idRef[1]}'s Paymetns </h1>
+    <div className="text-white min-h-[100dvh] px-2">
+      <h1 className="text-xl mb-4">
+        Add <span className="text text-sky-500">{idRef[1]}</span>'s Paymetns{" "}
+      </h1>
       <div className="flex">
         <div className="text-white w-1/2">
           <MonthInput handleData={handleData} month="january" />
@@ -60,9 +71,26 @@ export default function AddMonth() {
           <h1 className="underline pb-1">Paid Months</h1>
           <ol className="list-decimal">
             {data &&
-              data.map((single) => <li className="capitalize">{single}</li>)}
+              data?.payments.map((single) => (
+                <li key={single} className="capitalize">
+                  {single}
+                </li>
+              ))}
           </ol>
         </div>
+      </div>
+      <div className="border p-2 flex justify-between gap-2 text-sm">
+        <h1>Addmission Fee: {data?.Fee}</h1>
+        <input
+          type="number"
+          name="fee"
+          value={feeUpdate}
+          className="bg-transparent border rounded w-[100px]"
+          onChange={(e) => setFeeUpdate(e.target.value)}
+        />
+        <button className="border p-1 rounded-lg" onClick={addFee}>
+          Add Fee
+        </button>
       </div>
     </div>
   );

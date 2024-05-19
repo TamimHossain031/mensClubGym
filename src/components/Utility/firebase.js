@@ -41,6 +41,7 @@ const addData = async (data) => {
       timestamp: serverTimestamp(),
       id: newid,
       payments: [],
+      due:['April2024']
     }).then((restult) => {
       return true;
     });
@@ -66,7 +67,7 @@ const getData = async () => {
 const updatePayment = async (id, data) => {
   const documentRef = doc(db, "client", id);
   await updateDoc(documentRef, {
-    payments: data,
+    payments: data,    
   }).then((res) => getSingleData(id));
 };
 
@@ -80,5 +81,12 @@ const showData = () => {
   return singleData;
 };
 
+const upDateDue = async(id,due)=>{
+  const documentRef = doc(db, "client", id);
+  await updateDoc(documentRef, {
+    due:due
+  }).then((res) => console.log('okk'));
+}
 
-export { addData, getData, getSingleData, imgDb, showData, updatePayment,db};
+
+export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue};
