@@ -2,11 +2,12 @@ import { initializeApp } from "firebase/app";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   serverTimestamp,
   setDoc,
-  updateDoc
+  updateDoc,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -29,16 +30,17 @@ const app = initializeApp(firebaseConfig);
 const imgDb = getStorage(app);
 const db = getFirestore(app);
 
+let singleData = {};
+
 const addData = async (data) => {
   let id = await getId().then((result) => {
     let newid = result + 1;
 
-    
-    setDoc(doc(db, "client", newid.toString()),{
+    setDoc(doc(db, "client", newid.toString()), {
       ...data,
       timestamp: serverTimestamp(),
-      id:newid,
-      payments:[]
+      id: newid,
+      payments: [],
     }).then((restult) => {
       return true;
     });
@@ -54,21 +56,29 @@ const getId = async () => {
   return id.length == 0 ? 1000 : Math.max(...id);
 };
 
-const getData = async()=>{
+const getData = async () => {
   const allData = await getDocs(collection(db, "client")).then((data) => {
     return data;
   });
   return allData;
-}
+};
 
-const updatePayment=async(id,data)=>{
-  console.log(id,data);
-  const documentRef = doc(db, "client",id.toString());
-  await updateDoc(documentRef,{    
-    payments:data
-  }).then(res=> console.log('success'))
+const updatePayment = async (id, data) => {
+  const documentRef = doc(db, "client", id);
+  await updateDoc(documentRef, {
+    payments: data,
+  }).then((res) => getSingleData(id));
+};
+
+const getSingleData = async (id) => {
+  const docSnap = await getDoc(doc(db, "client", id)).then((res) => res.data());
+
+  singleData = docSnap;
+};
+
+const showData = () => {
+  return singleData;
+};
 
 
-}
-
-export { addData, imgDb,getData,updatePayment };
+export { addData, getData, getSingleData, imgDb, showData, updatePayment,db};

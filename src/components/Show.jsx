@@ -57,7 +57,7 @@ export default function ShowData() {
                     <td className='border'>{el.name}</td>
                     <td className='border'>{el.month}</td>
                     <td className='border'>{el.date}</td>
-                    <td className='border'><button onClick={()=> navigate(`month/${el.id}`)}>Due</button></td>
+                    <td className='border'><button onClick={()=> navigate(`month/${[el.id,el.name]}`)}>Due</button></td>
                 </tr>
             )
         })}
