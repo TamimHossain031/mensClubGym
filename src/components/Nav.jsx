@@ -27,7 +27,9 @@ export default function Nav(){
                 <li className='hover:bg-white hover:text-sky-500 py-1'>
                     <Link to='/show'>Show Member</Link>
                 </li>
-                
+                <li className='hover:bg-white hover:text-sky-500 py-1'>
+                    <Link to='/dueData'>Due Data</Link>
+                </li>
                 
             </ul>
         </div>}

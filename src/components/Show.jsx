@@ -57,7 +57,7 @@ export default function ShowData() {
       res.forEach((single) => {
         due = [...single.data().due];
         if (!single.data().payments.includes(month) && !due.includes(month)) {
-          console.log(month)
+          
           due.push(month);
 
           upDateDue(single.data().id.toString(), due);

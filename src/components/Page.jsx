@@ -5,7 +5,8 @@ import Home from "./Home";
 import Add from "./Add";
 import ShowData from "./Show";
 import AddMonth from "./AddMonth";
-import Error from "../components/Utility/Error"
+import Error from "../components/Utility/Error";
+import DueData from "./DueData";
 
 export default function Page() {
   return <>
@@ -17,6 +18,7 @@ export default function Page() {
           <Route path="show" element={<ShowData />} />
           <Route path="show/month/:id" element={<AddMonth />} />
           <Route path="error/:error" element={<Error />} />
+          <Route path="dueData" element={<DueData />} />
          
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>
