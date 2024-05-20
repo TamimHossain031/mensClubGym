@@ -8,6 +8,7 @@ import {
   serverTimestamp,
   setDoc,
   updateDoc,
+  onSnapshot
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -41,7 +42,7 @@ const addData = async (data) => {
       timestamp: serverTimestamp(),
       id: newid,
       payments: [],
-      due:['june2024','july2024']
+      due:[]
     }).then((restult) => {
       return true;
     });

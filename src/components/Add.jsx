@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import Input from "./Utility/Input";
 import { imgDb,addData } from "./Utility/firebase";
 import { useNavigate } from "react-router-dom";
-import upLogo from '../assets/icons8-upload-image-96.png'
+import upLogo from '../assets/icons8-upload-image-96.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Add() {
   
   const navigate = useNavigate();
@@ -51,7 +53,11 @@ export default function Add() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             btn.current.value = "Success";
            
-            let result = addData({ ...data, downloadURL, date }).then(result=>navigate('/show'))
+            let result = addData({ ...data, downloadURL, date }).then(result=>{
+
+              navigate('/show');
+
+            })
             
             
           });

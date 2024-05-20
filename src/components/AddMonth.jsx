@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db, updatePayment,upDateDue } from "../components/Utility/firebase";
 import MonthInput from "./Utility/MonthInput";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 export default function AddMonth() {
   const { id } = useParams();
   const [data, setData] = useState();
   const [feeUpdate, setFeeUpdate] = useState("");
+  const navigate = useNavigate();
   let idRef = id.split(",");
   let month = [];
   let paymentData = "";
@@ -18,6 +22,7 @@ export default function AddMonth() {
       const filterd = month.filter((single) => single !== name);
       month = filterd;
       updateData(month);
+      
     } else if (data?.payments.includes(name) == false) {
       month.push(name);
       updateData(month);
@@ -25,7 +30,17 @@ export default function AddMonth() {
   };
 
   const fetchData = () => {   
-    
+    toast.success('Update Successfully', {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      
+      });
     const docSnap = onSnapshot(doc(db, "client", idRef[0]), (doc) => {
       setData(doc.data());
       
@@ -35,14 +50,14 @@ export default function AddMonth() {
   const dueCheck= async()=>{
     const due = data.due ;
     const payments = data.payments
-      
-    console.log(due,payments);
+   
+   
     let arr = due.filter(item => !payments.includes(item));   
       
     await upDateDue(idRef[0],arr).then(res=> fetchData())
       
       
-    console.log();
+   
     
       
       
@@ -126,6 +141,7 @@ export default function AddMonth() {
         </button>
       </div>
       <button className='float-right border p-2 m-2 rounded-xl text-sm' onClick={dueCheck}>Update</button>
+      <ToastContainer/>
     </div>
   );
 }

@@ -10,22 +10,22 @@ export default function ShowData() {
   const monthRef = useRef(1);
   const navigate = useNavigate();
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
   ];
   const now = new Date();
   const month =
-    now.toLocaleString("default", { month: "long" }) + now.getFullYear();
+    now.toLocaleString("default", { month: "long" }).toLowerCase() + now.getFullYear();
 
   let nextM = monthRef.current;
 
@@ -37,30 +37,28 @@ export default function ShowData() {
     nextMonthName = monthNames[nextM] + now.getFullYear().toString();
   }
 
-  
-
   window.addEventListener("online", () => {
     navigate("/");
   });
+  
+  
 
- 
   if (month == nextMonthName) {
-    let current = (monthRef.current = 1);
- 
+    let current = monthRef.current = 1;
+    
+    
     let newDate = new Date().getMonth() + current;
-
+    
+    
     monthRef.current = newDate;
-
-   
 
     let due = [];
     const allData = getData().then((res) =>
       res.forEach((single) => {
         due = [...single.data().due];
-        if (!single.data().payments.includes(month)) {
-          if (!due.includes(month)) {
-            due.push(month);
-          }
+        if (!single.data().payments.includes(month) && !due.includes(month)) {
+          console.log(month)
+          due.push(month);
 
           upDateDue(single.data().id.toString(), due);
         }
@@ -128,10 +126,13 @@ export default function ShowData() {
                   <td className="border">{el.date}</td>
                   <td className="border py-1 text-center">
                     <button
-                      className="bg-stone-500 w-[40px] h-[40px] flex justify-center items-center rounded-lg mb-1"
+                      className="bg-stone-500 w-[40px] h-[40px] flex justify-center items-center rounded-lg mb-1 relative"
                       onClick={() => navigate(`month/${[el.id, el.name]}`)}
                     >
                       <img src={Due} width={15} />
+                      <span className="text-[10px] absolute top-[-2px] right-[-3px] w-3 h-3 bg-red-400 rounded-full flex justify-center items-center">
+                        {el.due.length}
+                      </span>
                     </button>
                     <button
                       className="bg-white w-[40px] h-[40px] flex justify-center items-center rounded-lg"
