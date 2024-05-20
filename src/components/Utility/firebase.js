@@ -41,7 +41,7 @@ const addData = async (data) => {
       timestamp: serverTimestamp(),
       id: newid,
       payments: [],
-      due:['April2024']
+      due:['june2024','july2024']
     }).then((restult) => {
       return true;
     });
@@ -85,7 +85,7 @@ const upDateDue = async(id,due)=>{
   const documentRef = doc(db, "client", id);
   await updateDoc(documentRef, {
     due:due
-  }).then((res) => console.log('okk'));
+  })
 }
 
 

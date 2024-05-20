@@ -1,7 +1,7 @@
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { db, updatePayment } from "../components/Utility/firebase";
+import { db, updatePayment,upDateDue } from "../components/Utility/firebase";
 import MonthInput from "./Utility/MonthInput";
 export default function AddMonth() {
   const { id } = useParams();
@@ -13,7 +13,7 @@ export default function AddMonth() {
   const year = new Date().getFullYear();
   const handleData = (name, paid) => {
     month = data?.payments;
-
+   
     if (!paid) {
       const filterd = month.filter((single) => single !== name);
       month = filterd;
@@ -24,12 +24,31 @@ export default function AddMonth() {
     }
   };
 
-  const fetchData = () => {
+  const fetchData = () => {   
+    
     const docSnap = onSnapshot(doc(db, "client", idRef[0]), (doc) => {
       setData(doc.data());
+      
     });
   };
 
+  const dueCheck= async()=>{
+    const due = data.due ;
+    const payments = data.payments
+      
+    console.log(due,payments);
+    let arr = due.filter(item => !payments.includes(item));   
+      
+    await upDateDue(idRef[0],arr).then(res=> fetchData())
+      
+      
+    console.log();
+    
+      
+      
+    
+    
+  }
   useEffect(() => {
     fetchData();
   }, []);
@@ -50,8 +69,10 @@ export default function AddMonth() {
   return (
     <div className="text-white min-h-[100dvh] px-2">
       <h1 className="text-xl mb-4">
-        Add <span className="text text-sky-500">{idRef[1]}</span>'s Paymetns{" "}
+        Add <span className="text-sky-500">{idRef[1]}</span>'s Paymetns{" "}
       </h1>
+      <p>Id No: <span className="text-sky-500 inline-block">{idRef[0]} </span></p>
+      
       <div className="flex">
         <div className="text-white w-1/2">
           <MonthInput handleData={handleData} month="january" />
@@ -67,7 +88,7 @@ export default function AddMonth() {
           <MonthInput handleData={handleData} month="november" />
           <MonthInput handleData={handleData} month="december" />
         </div>
-        <div className="w-1/2">
+        <div className="w-1/2 text-sm">
           <h1 className="underline pb-1">Paid Months</h1>
           <ol className="list-decimal">
             {data &&
@@ -77,7 +98,19 @@ export default function AddMonth() {
                 </li>
               ))}
           </ol>
+
+          <h1 className='mt-6 underline pb-2'>Due Month's</h1>
+          <ol className="list-decimal">
+            {data &&
+              data?.due.map((single) => (
+                <li key={single} className="capitalize">
+                  {single}
+                </li>
+              ))}
+          </ol>
+         
         </div>
+       
       </div>
       <div className="border p-2 flex justify-between gap-2 text-sm">
         <h1>Addmission Fee: {data?.Fee}</h1>
@@ -92,6 +125,7 @@ export default function AddMonth() {
           Add Fee
         </button>
       </div>
+      <button className='float-right border p-2 m-2 rounded-xl text-sm' onClick={dueCheck}>Update</button>
     </div>
   );
 }
