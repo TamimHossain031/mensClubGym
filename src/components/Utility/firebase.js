@@ -76,6 +76,8 @@ const getSingleData = async (id) => {
   const docSnap = await getDoc(doc(db, "client", id)).then((res) => res.data());
 
   singleData = docSnap;
+
+  
 };
 
 const showData = () => {

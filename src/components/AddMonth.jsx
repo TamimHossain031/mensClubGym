@@ -1,11 +1,10 @@
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { db, updatePayment,upDateDue } from "../components/Utility/firebase";
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { db, upDateDue, updatePayment } from "../components/Utility/firebase";
 import MonthInput from "./Utility/MonthInput";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 export default function AddMonth() {
   const { id } = useParams();
   const [data, setData] = useState();
@@ -17,20 +16,21 @@ export default function AddMonth() {
   const year = new Date().getFullYear();
   const handleData = (name, paid) => {
     month = data?.payments;
-   
+
     if (!paid) {
       const filterd = month.filter((single) => single !== name);
       month = filterd;
       updateData(month);
-      
     } else if (data?.payments.includes(name) == false) {
       month.push(name);
       updateData(month);
     }
   };
 
-  const fetchData = () => {   
-    toast.success('Update Successfully', {
+  
+  
+  const fetchData = () => {
+    toast.success("Update Successfully", {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
@@ -39,31 +39,20 @@ export default function AddMonth() {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      
-      });
+    });
     const docSnap = onSnapshot(doc(db, "client", idRef[0]), (doc) => {
       setData(doc.data());
-      
     });
   };
 
-  const dueCheck= async()=>{
-    const due = data.due ;
-    const payments = data.payments
-   
-   
-    let arr = due.filter(item => !payments.includes(item));   
-      
-    await upDateDue(idRef[0],arr).then(res=> fetchData())
-      
-      
-   
-    
-      
-      
-    
-    
-  }
+  const dueCheck = async () => {
+    const due = data.due;
+    const payments = data.payments;
+
+    let arr = due.filter((item) => !payments.includes(item));
+
+    await upDateDue(idRef[0], arr).then((res) => fetchData());
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -86,8 +75,10 @@ export default function AddMonth() {
       <h1 className="text-xl mb-4">
         Add <span className="text-sky-500">{idRef[1]}</span>'s Paymetns{" "}
       </h1>
-      <p>Id No: <span className="text-sky-500 inline-block">{idRef[0]} </span></p>
-      
+      <p>
+        Id No: <span className="text-sky-500 inline-block">{idRef[0]} </span>
+      </p>
+
       <div className="flex">
         <div className="text-white w-1/2">
           <MonthInput handleData={handleData} month="january" />
@@ -114,7 +105,7 @@ export default function AddMonth() {
               ))}
           </ol>
 
-          <h1 className='mt-6 underline pb-2'>Due Month's</h1>
+          <h1 className="mt-6 underline pb-2">Due Month's</h1>
           <ol className="list-decimal">
             {data &&
               data?.due.map((single) => (
@@ -123,9 +114,7 @@ export default function AddMonth() {
                 </li>
               ))}
           </ol>
-         
         </div>
-       
       </div>
       <div className="border p-2 flex justify-between gap-2 text-sm">
         <h1>Addmission Fee: {data?.Fee}</h1>
@@ -140,8 +129,13 @@ export default function AddMonth() {
           Add Fee
         </button>
       </div>
-      <button className='float-right border p-2 m-2 rounded-xl text-sm' onClick={dueCheck}>Update</button>
-      <ToastContainer/>
+      <button
+        className="float-right border p-2 m-2 rounded-xl text-sm"
+        onClick={dueCheck}
+      >
+        Update
+      </button>
+      <ToastContainer />
     </div>
   );
 }

@@ -25,7 +25,8 @@ export default function ShowData() {
   ];
   const now = new Date();
   const month =
-    now.toLocaleString("default", { month: "long" }).toLowerCase() + now.getFullYear();
+    now.toLocaleString("default", { month: "long" }).toLowerCase() +
+    now.getFullYear();
 
   let nextM = monthRef.current;
 
@@ -40,16 +41,12 @@ export default function ShowData() {
   window.addEventListener("online", () => {
     navigate("/");
   });
-  
-  
 
   if (month == nextMonthName) {
-    let current = monthRef.current = 1;
-    
-    
+    let current = (monthRef.current = 1);
+
     let newDate = new Date().getMonth() + current;
-    
-    
+
     monthRef.current = newDate;
 
     let due = [];
@@ -57,7 +54,6 @@ export default function ShowData() {
       res.forEach((single) => {
         due = [...single.data().due];
         if (!single.data().payments.includes(month) && !due.includes(month)) {
-          
           due.push(month);
 
           upDateDue(single.data().id.toString(), due);
@@ -109,7 +105,7 @@ export default function ShowData() {
         </thead>
         <tbody className="text-xs">
           {data.length == 0 ? (
-            <h1>No Data</h1>
+            <tr>No Data</tr>
           ) : (
             data.map((el) => {
               return (
@@ -136,7 +132,7 @@ export default function ShowData() {
                     </button>
                     <button
                       className="bg-white w-[40px] h-[40px] flex justify-center items-center rounded-lg"
-                      onClick={() => navigate(`month/${[el.id, el.name]}`)}
+                      onClick={() => navigate(`test/${el.id}`)}
                     >
                       <img src={edit} width={30} />
                     </button>{" "}

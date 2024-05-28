@@ -1,21 +1,19 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useRef,useState } from "react";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import Input from "./Utility/Input";
-import { imgDb,addData } from "./Utility/firebase";
 import { useNavigate } from "react-router-dom";
-import upLogo from '../assets/icons8-upload-image-96.png';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import upLogo from "../assets/icons8-upload-image-96.png";
+import Input from "./Utility/Input";
+import { addData, imgDb } from "./Utility/firebase";
 export default function Add() {
-  
   const navigate = useNavigate();
   const imgEl = useRef(null);
   const btn = useRef("");
 
   // let month =[];
   // const setDate=(date)=>{
-  //   month.push(date);    
+  //   month.push(date);
   // }
 
   const {
@@ -38,7 +36,7 @@ export default function Add() {
           btn.current.value = "Loading...";
           switch (snapshot.state) {
             case "paused":
-             btn.current.value = "Upload is paused";
+              btn.current.value = "Upload is paused";
               break;
             case "running":
               btn.current.value = "Loading...";
@@ -52,22 +50,18 @@ export default function Add() {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             btn.current.value = "Success";
-           
-            let result = addData({ ...data, downloadURL, date }).then(result=>{
 
-              navigate('/show');
-
-            })
-            
-            
+            let result = addData({ ...data, downloadURL, date }).then(
+              (result) => {
+                navigate("/show");
+              }
+            );
           });
         }
       );
     }
   };
 
-  
- 
   const upload = (e) => {
     imgEl.current = e.target.files[0];
   };
@@ -100,22 +94,21 @@ export default function Add() {
           required
           errors={errors?.mother}
         />
-        
-          <Input
-            type="date"
-            label="birth"
-            register={register}
-            required
-            errors={errors?.birth}
-          />
-          <Input
-            type="number"
-            label="Fee"
-            register={register}
-            required
-            errors={errors?.birth}
-          />
-        
+
+        <Input
+          type="date"
+          label="birth"
+          register={register}
+          required
+          errors={errors?.birth}
+        />
+        <Input
+          type="number"
+          label="Fee"
+          register={register}
+          required
+          errors={errors?.birth}
+        />
 
         <Input
           type="number"
@@ -175,8 +168,17 @@ export default function Add() {
           </option>
         </select>
 
-        <input type="file" id='file' name="file" ref={imgEl} onChange={upload} hidden/>
-        <label htmlFor='file' className='cursor-pointer'><img src={upLogo} width={50} alt='upload'/> Upload Members Photo</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          ref={imgEl}
+          onChange={upload}
+          hidden
+        />
+        <label htmlFor="file" className="cursor-pointer">
+          <img src={upLogo} width={50} alt="upload" /> Upload Members Photo
+        </label>
 
         <input
           className="border w-fit m-auto px-4 py-2 rounded-xl mt-4 cursor-pointer"
