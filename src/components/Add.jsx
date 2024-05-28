@@ -40,7 +40,6 @@ export default function Add() {
               break;
             case "running":
               btn.current.value = "Loading...";
-
               break;
           }
         },
