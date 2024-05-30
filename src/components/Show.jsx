@@ -1,20 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { getData, upDateDue,deleteData,getUpdateData } from "./Utility/firebase";
+import { useEffect, useState } from "react";
+import { deleteData, getData, upDateDue } from "./Utility/firebase";
 
 import { useNavigate } from "react-router-dom";
 import edit from "../assets/edit-6931553_1280-removebg-preview.png";
 import Due from "../assets/hourglass-1425727_1280.png";
-import FetchData from "../hooks/fetchSingleData";
 export default function ShowData() {
   const [data, setData] = useState([]);
 
-  
-  
-  
-  
-  
+  const nextMonth = new Date().getMonth();
 
-  const monthRef = useRef(1);
   const navigate = useNavigate();
   const monthNames = [
     "january",
@@ -31,37 +25,39 @@ export default function ShowData() {
     "december",
   ];
   const now = new Date();
-  const month =
-    now.toLocaleString("default", { month: "long" }).toLowerCase() +
-    now.getFullYear();
+  const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
 
-  let nextM = monthRef.current;
-
-  let nextMonthName;
-  if (nextM >= 12) {
-    nextMonthName = monthNames[0] + now.getFullYear().toString();
-    monthRef.current = 0;
-  } else {
-    nextMonthName = monthNames[nextM] + now.getFullYear().toString();
+  let nextM = new Date().getMonth() + 1;
+  let setMonth = localStorage.getItem("nextMonth");
+  if (!setMonth) {
+    localStorage.setItem("nextMonth", nextM);
   }
 
   window.addEventListener("online", () => {
     navigate("/");
   });
+  let nMonth = localStorage.getItem("nextMonth");
 
-  if (month == nextMonthName) {
-    let current = (monthRef.current = 1);
+  if (month == nMonth) {
+    let nextMonthName;
+    if (nextM >= 12) {
+      nextMonthName = monthNames[0];
+    } else {
+      nextMonthName = monthNames[nextM];
+    }
+    localStorage.setItem("nextMonth", nextMonthName);
 
-    let newDate = new Date().getMonth() + current;
-
-    monthRef.current = newDate;
+    let monthWithYear = month + now.getFullYear().toString();
 
     let due = [];
     const allData = getData().then((res) =>
       res.forEach((single) => {
         due = [...single.data().due];
-        if (!single.data().payments.includes(month) && !due.includes(month)) {
-          due.push(month);
+        if (
+          !single.data().payments.includes(monthWithYear) &&
+          !due.includes(monthWithYear)
+        ) {
+          due.push(monthWithYear);
 
           upDateDue(single.data().id.toString(), due);
         }
@@ -88,9 +84,8 @@ export default function ShowData() {
         });
       }
     }
-    
+
     startFetching();
-   
 
     return () => {
       ignore = true;
@@ -140,7 +135,10 @@ export default function ShowData() {
                     </button>
                     <button
                       className="bg-white w-[40px] h-[40px] flex justify-center items-center rounded-lg"
-                      onClick={() =>{deleteData(el.id.toString()); navigate('')}}
+                      onClick={() => {
+                        deleteData(el.id.toString());
+                        navigate("");
+                      }}
                     >
                       <img src={edit} width={30} />
                     </button>{" "}
