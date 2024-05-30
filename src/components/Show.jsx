@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { getData, upDateDue } from "./Utility/firebase";
+import { getData, upDateDue,deleteData,getUpdateData } from "./Utility/firebase";
 
 import { useNavigate } from "react-router-dom";
 import edit from "../assets/edit-6931553_1280-removebg-preview.png";
 import Due from "../assets/hourglass-1425727_1280.png";
+import FetchData from "../hooks/fetchSingleData";
 export default function ShowData() {
   const [data, setData] = useState([]);
+
+  
+  
+  
+  
+  
 
   const monthRef = useRef(1);
   const navigate = useNavigate();
@@ -81,8 +88,9 @@ export default function ShowData() {
         });
       }
     }
-
+    
     startFetching();
+   
 
     return () => {
       ignore = true;
@@ -132,7 +140,7 @@ export default function ShowData() {
                     </button>
                     <button
                       className="bg-white w-[40px] h-[40px] flex justify-center items-center rounded-lg"
-                      onClick={() => navigate(`test/${el.id}`)}
+                      onClick={() =>{deleteData(el.id.toString()); navigate('')}}
                     >
                       <img src={edit} width={30} />
                     </button>{" "}

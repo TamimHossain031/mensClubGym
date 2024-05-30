@@ -8,6 +8,7 @@ import {
   serverTimestamp,
   setDoc,
   updateDoc,
+  deleteDoc,
   onSnapshot
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -65,6 +66,9 @@ const getData = async () => {
   return allData;
 };
 
+const getUpdateData = onSnapshot(collection(db,'client'),(docs)=>{
+    return docs;
+})
 const updatePayment = async (id, data) => {
   const documentRef = doc(db, "client", id);
   await updateDoc(documentRef, {
@@ -91,5 +95,9 @@ const upDateDue = async(id,due)=>{
   })
 }
 
+const deleteData = async(id)=>{
+  await deleteDoc(doc(db,'client',id));
+}
 
-export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue};
+
+export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue,deleteData,getUpdateData};
