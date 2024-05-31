@@ -30,12 +30,17 @@ export default function ShowData() {
   let nextM = new Date().getMonth() + 1;
   let setMonth = localStorage.getItem("nextMonth");
   if (!setMonth) {
-    localStorage.setItem("nextMonth", nextM);
+    localStorage.setItem("nextMonth", monthNames[nextM]);
   }
+
+  
+  
 
   window.addEventListener("online", () => {
     navigate("/");
   });
+
+ 
   let nMonth = localStorage.getItem("nextMonth");
 
   if (month == nMonth) {
@@ -79,9 +84,10 @@ export default function ShowData() {
           })
           .then((result) => setData([...result]));
 
-        window.addEventListener("offline", () => {
-          navigate("/error/disconnect");
-        });
+          window.addEventListener("offline", () => {
+            navigate("/error/disconnect");
+          }); 
+        
       }
     }
 

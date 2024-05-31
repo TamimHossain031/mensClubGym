@@ -5,8 +5,11 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 export default function DueData() {
   const { data, isPending, error } = useDue(getData);
-  const filterd = data.filter(single => single.due.length > 0);
+
+ 
+  const filterd = data.filter(single => single?.due.length > 0);
   
+
   
 
   const generatePDF = () => {

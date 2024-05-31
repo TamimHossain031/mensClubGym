@@ -13,7 +13,7 @@ function getDueData(getData) {
         return allData;
       })
       .then((result) => {
-        let dueMember = result.filter((res) => res.due.length == 0); // to be length < 0
+        let dueMember = result.filter((res) => res.due.length > 0); // to be length > 0
 
         setData([...dueMember]);
         setIsPending(false);
