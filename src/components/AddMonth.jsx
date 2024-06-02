@@ -63,10 +63,12 @@ export default function AddMonth() {
 
   const addFee = async (e) => {
     let updateFee = Number(data.Fee) + Number(feeUpdate);
+    let deleteDue = Number(data.AdmissionDue) - Number(feeUpdate);
 
     const washingtonRef = doc(db, "client", data?.id.toString());
     await updateDoc(washingtonRef, {
       Fee: updateFee.toString(),
+      AdmissionDue:deleteDue.toString()
     }).then((res) => setFeeUpdate(""));
   };
 
@@ -117,7 +119,10 @@ export default function AddMonth() {
         </div>
       </div>
       <div className="border p-2 flex justify-between gap-2 text-sm">
+        <div>
         <h1>Addmission Fee: {data?.Fee}</h1>
+        <h1>Addmission Fee Due: {data?.AdmissionDue}</h1>
+          </div>
         <input
           type="number"
           name="fee"

@@ -16,7 +16,6 @@ export default function Add() {
   //   month.push(date);
   // }
 
-  
   const {
     register,
     handleSubmit,
@@ -24,6 +23,7 @@ export default function Add() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    console.log(data);
     const date = new Date().toDateString();
     if (imgEl.current.value == "") {
     } else {
@@ -67,7 +67,7 @@ export default function Add() {
   };
 
   return (
-    <div className="min-h-[100dvh] py-4">
+    <div className="min-h-[100dvh] py-4 w-full]">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid gap-1 px-2 text-white"
@@ -102,6 +102,7 @@ export default function Add() {
           required
           errors={errors?.birth}
         />
+        <div className='flex justify-between '>
         <Input
           type="number"
           label="Fee"
@@ -109,6 +110,15 @@ export default function Add() {
           required
           errors={errors?.birth}
         />
+        <Input
+          type="number"
+          label="AdmissionDue"
+          register={register}
+          required
+          errors={errors?.birth}
+        />
+        </div>
+        
 
         <Input
           type="number"
@@ -145,13 +155,20 @@ export default function Add() {
           required
           errors={errors?.blood}
         />
-        <Input
-          type="text"
-          label="occupation"
-          register={register}
-          required
-          errors={errors?.occupation}
-        />
+      
+
+        <select {...register("occupation")} className="bg-transparent my-2">
+          <option className="text-black" value="student">
+            Student
+          </option>
+          <option className="text-black" value="business">
+            Business
+          </option>
+          <option className="text-black" value="other">
+            Other
+          </option>
+         
+        </select>
 
         <select {...register("month")} className="bg-transparent my-2">
           <option className="text-black" value="1">

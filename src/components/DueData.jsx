@@ -38,7 +38,7 @@ export default function DueData() {
   };
 
   return (
-    <section className="max-h-screen bg-white text-center p-5 text-xs">
+    <section className="max-h-screen overflow-y-auto bg-white text-center p-5 text-xs">
       {isPending && <p>loading.....</p>}
       {error && <p>{error}</p>}
       <div>

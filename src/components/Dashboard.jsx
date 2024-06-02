@@ -1,4 +1,5 @@
 import {useState} from  'react';
+import AddEmploye from './AddEmploye';
 export default function Dashboard() {
 const [show,setShow]=useState(false);
 const handleAdd=()=>{
@@ -6,6 +7,7 @@ const handleAdd=()=>{
 }
   return (
     <section className="w-full p-5 h-[100dvh] text-white relative">
+      {show && <AddEmploye/>}
       <div>
         <button className='border px-1' onClick={handleAdd}>Add Employe</button>
         <table className='border border-collapse w-full mt-4'>
@@ -18,6 +20,11 @@ const handleAdd=()=>{
               <th className='border'>action</th>
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              
+            </tr>
+          </tbody>
         </table>
       </div>
     </section>

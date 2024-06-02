@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { deleteData, getData, upDateDue } from "./Utility/firebase";
-
 import { useNavigate } from "react-router-dom";
 import edit from "../assets/edit-6931553_1280-removebg-preview.png";
 import Due from "../assets/hourglass-1425727_1280.png";
@@ -28,6 +27,7 @@ export default function ShowData() {
   const month = now.toLocaleString("default", { month: "long" }).toLowerCase();
 
   let nextM = new Date().getMonth() + 1;
+  let prevM = new Date().getMonth() - 1;
   let setMonth = localStorage.getItem("nextMonth");
   if (!setMonth) {
     localStorage.setItem("nextMonth", monthNames[nextM]);
@@ -51,18 +51,28 @@ export default function ShowData() {
       nextMonthName = monthNames[nextM];
     }
     localStorage.setItem("nextMonth", nextMonthName);
+    let prevMonthName;
+    if (prevM < 0) {
+      prevMonthName = monthNames[11] + (now.getFullYear() - 1).toString();
+    } else {
+      prevMonthName = monthNames[prevM] + now.getFullYear()
+    }
+    
+   
+   
 
-    let monthWithYear = month + now.getFullYear().toString();
+    
+    
 
     let due = [];
     const allData = getData().then((res) =>
       res.forEach((single) => {
         due = [...single.data().due];
         if (
-          !single.data().payments.includes(monthWithYear) &&
-          !due.includes(monthWithYear)
+          !single.data().payments.includes(prevMonthName) &&
+          !due.includes(prevMonthName)
         ) {
-          due.push(monthWithYear);
+          due.push(prevMonthName);
 
           upDateDue(single.data().id.toString(), due);
         }
@@ -101,7 +111,7 @@ export default function ShowData() {
   return (
     <div className="h-[100dvh] overflow-y-auto text-white p-3">
       <h2>Member's Details</h2>
-      <table className="border-collapse border border-slate-500 table-auto w-full text-center">
+    {!data ? <p>Loading...</p> :  <table className="border-collapse border border-slate-500 table-auto w-full text-center">
         <thead>
           <tr className="border">
             <th>Id</th>
@@ -113,9 +123,8 @@ export default function ShowData() {
           </tr>
         </thead>
         <tbody className="text-xs">
-          {data.length == 0 ? (
-            <tr>No Data</tr>
-          ) : (
+
+          {data.length !== 0 && (
             data.map((el) => {
               return (
                 <tr key={el.id} className="border border-collapse">
@@ -154,7 +163,7 @@ export default function ShowData() {
             })
           )}
         </tbody>
-      </table>
+      </table>} 
     </div>
   );
 }

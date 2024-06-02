@@ -1,6 +1,6 @@
 export default function Input({ type, label, register, required, errors }) {
   return (
-    <>
+    <div className='flex flex-col'>
       <label className="capitalize">{label} :</label>
       <input
         className={`border bg-transparent rounded p-1 text-white ${
@@ -9,6 +9,6 @@ export default function Input({ type, label, register, required, errors }) {
         type={type}
         {...register(label, { required })}
       />
-    </>
+    </div>
   );
 }
