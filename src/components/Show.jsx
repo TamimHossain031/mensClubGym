@@ -99,7 +99,7 @@ export default function ShowData() {
   }, []);
 
   return (
-    <div className="h-screen text-white p-3">
+    <div className="h-[100dvh] overflow-y-auto text-white p-3">
       <h2>Member's Details</h2>
       <table className="border-collapse border border-slate-500 table-auto w-full text-center">
         <thead>
@@ -123,7 +123,7 @@ export default function ShowData() {
                   <td>
                     <img
                       src={el.downloadURL}
-                      className="w-[50px] h-[50px] rounded-full"
+                      className="w-[50px] h-[50px] rounded-full object-cover"
                     />{" "}
                   </td>
                   <td className="border">{el.name}</td>

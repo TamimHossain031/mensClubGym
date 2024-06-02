@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword,updatePassword,sendPasswordResetEmail,signOut } from "firebase/auth";
 import {
   collection,
   doc,
@@ -29,6 +30,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const imgDb = getStorage(app);
 const db = getFirestore(app);
 
@@ -99,5 +101,29 @@ const deleteData = async(id)=>{
   await deleteDoc(doc(db,'client',id));
 }
 
+const signIn= async(email,password)=>{
+ return await signInWithEmailAndPassword(auth,email,password) ;
+  
+}
 
-export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue,deleteData,getUpdateData};
+const updateAdminPass=(update,email)=>{
+  const user = auth.currentUser;
+  sendPasswordResetEmail(auth,email).then(res=>console.log(res))
+  
+ 
+}
+
+const addEmploe=(role,data)=>{
+  setDoc(doc(db, "employe",role ), {
+   ...data
+  }).then((restult) => {
+    return true;
+  });
+}
+
+const adminSignOut=()=>{
+ return signOut(auth)
+}
+
+
+export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue,deleteData,getUpdateData,signIn,updateAdminPass,addEmploe,adminSignOut};

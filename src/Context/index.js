@@ -1,4 +1,4 @@
 import {createContext} from 'react';
-const singleData = createContext({});
+const login = createContext('');
 
-export {singleData};
+export {login};
