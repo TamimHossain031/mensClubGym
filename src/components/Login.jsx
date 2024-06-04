@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { signIn } from "./Utility/firebase";
+import { signIn,anotherLogin } from "./Utility/firebase";
 import UpdatePass from "./Utility/UpdatePass";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 import {useContext} from 'react';
 import { login } from "../Context";
 export default function Login() {
@@ -9,7 +9,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [show,setShow] = useState(false);
   const [error,setError]=useState('');
+  const [isAdmin,setIsAdmin]=useState(false);
   const {setIsLogin} = useContext(login);
+
+ 
+  
+  
  const navigate = useNavigate();
  
 
@@ -19,15 +24,35 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const data = await signIn(email, password)
+
+    if(isAdmin){
+      const data = await signIn(email, password)
       .then((result) => {
         setIsLogin(data=> !data)
-        localStorage.setItem('role','admin');
+        
         
        navigate('/dashboard')
       })
       .catch((err) => setError(err.code));
+
+    }else{
+      const setEm = (roleName) =>{
+        setIsLogin(data=> !data);
+        navigate('/show')
+        localStorage.setItem('role',roleName);
+        
+      }
+     const employe =  anotherLogin(email,password).then(res=>
+     
+     res.length == 1 ? setEm(res[0].role) : navigate('/login')
+      
+     )
+    
+
+    }
+
+    
+    
   };
   return (
     <section className="h-[100dvh] text-center text-white flex flex-col relative">
@@ -38,10 +63,10 @@ export default function Login() {
         className="flex flex-col w-[300px] text-left m-auto"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="email">Email : </label>
+        <label htmlFor="email">{isAdmin ? 'Email' : 'Username'}: </label>
         <input
           className="bg-transparent border"
-          type="email"
+          type={isAdmin ? 'email' : 'text'}
           name="email"
           id="email"
           required
@@ -58,7 +83,7 @@ export default function Login() {
         />
 
        {error && <p className='text-xs text-red-400 py-1'>Your admin password is Wrong <button className='text-white underline' onClick={handleModal}>Update PassWord</button></p>} 
-
+        <label htmlFor="admin"><input id='admin' type="checkbox" checked={isAdmin} onChange={()=> setIsAdmin(single => !single)}/>   Login as Admin</label>
         <button className="border p-1 mt-5 hover:bg-sky-600 hover:border-sky-600 transition-all">
           Login
         </button>

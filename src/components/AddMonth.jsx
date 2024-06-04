@@ -27,8 +27,6 @@ export default function AddMonth() {
     }
   };
 
-  
-  
   const fetchData = () => {
     toast.success("Update Successfully", {
       position: "top-center",
@@ -42,7 +40,7 @@ export default function AddMonth() {
     });
     const docSnap = onSnapshot(doc(db, "client", idRef[0]), (doc) => {
       setData(doc.data());
-    });
+    }); 
   };
 
   const dueCheck = async () => {
@@ -68,7 +66,7 @@ export default function AddMonth() {
     const washingtonRef = doc(db, "client", data?.id.toString());
     await updateDoc(washingtonRef, {
       Fee: updateFee.toString(),
-      AdmissionDue:deleteDue.toString()
+      AdmissionDue: deleteDue.toString(),
     }).then((res) => setFeeUpdate(""));
   };
 
@@ -98,7 +96,7 @@ export default function AddMonth() {
         </div>
         <div className="w-1/2 text-sm">
           <h1 className="underline pb-1">Paid Months</h1>
-          <ol className="list-decimal">
+          <ol className="h-[150px] overflow-y-auto">
             {data &&
               data?.payments.map((single) => (
                 <li key={single} className="capitalize">
@@ -108,7 +106,7 @@ export default function AddMonth() {
           </ol>
 
           <h1 className="mt-6 underline pb-2">Due Month's</h1>
-          <ol className="list-decimal">
+          <ol className="h-[150px] overflow-y-auto">
             {data &&
               data?.due.map((single) => (
                 <li key={single} className="capitalize">
@@ -120,9 +118,9 @@ export default function AddMonth() {
       </div>
       <div className="border p-2 flex justify-between gap-2 text-sm">
         <div>
-        <h1>Addmission Fee: {data?.Fee}</h1>
-        <h1>Addmission Fee Due: {data?.AdmissionDue}</h1>
-          </div>
+          <h1>Addmission Fee: {data?.Fee}</h1>
+          <h1>Addmission Fee Due: {data?.AdmissionDue}</h1>
+        </div>
         <input
           type="number"
           name="fee"

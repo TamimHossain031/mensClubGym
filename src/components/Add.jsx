@@ -102,23 +102,22 @@ export default function Add() {
           required
           errors={errors?.birth}
         />
-        <div className='flex justify-between '>
-        <Input
-          type="number"
-          label="Fee"
-          register={register}
-          required
-          errors={errors?.birth}
-        />
-        <Input
-          type="number"
-          label="AdmissionDue"
-          register={register}
-          required
-          errors={errors?.birth}
-        />
+        <div className="flex justify-between ">
+          <Input
+            type="number"
+            label="Fee"
+            register={register}
+            required
+            errors={errors?.birth}
+          />
+          <Input
+            type="number"
+            label="AdmissionDue"
+            register={register}
+            required
+            errors={errors?.birth}
+          />
         </div>
-        
 
         <Input
           type="number"
@@ -155,7 +154,6 @@ export default function Add() {
           required
           errors={errors?.blood}
         />
-      
 
         <select {...register("occupation")} className="bg-transparent my-2">
           <option className="text-black" value="student">
@@ -167,7 +165,6 @@ export default function Add() {
           <option className="text-black" value="other">
             Other
           </option>
-         
         </select>
 
         <select {...register("month")} className="bg-transparent my-2">

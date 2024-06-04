@@ -10,7 +10,9 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  onSnapshot
+  onSnapshot,
+  query,
+  where
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -61,8 +63,8 @@ const getId = async () => {
   return id.length == 0 ? 1000 : Math.max(...id);
 };
 
-const getData = async () => {
-  const allData = await getDocs(collection(db, "client")).then((data) => {
+const getData = async (section = 'client') => {
+  const allData = await getDocs(collection(db, section)).then((data) => {
     return data;
   });
   return allData;
@@ -71,6 +73,7 @@ const getData = async () => {
 const getUpdateData = onSnapshot(collection(db,'client'),(docs)=>{
     return docs;
 })
+
 const updatePayment = async (id, data) => {
   const documentRef = doc(db, "client", id);
   await updateDoc(documentRef, {
@@ -97,8 +100,8 @@ const upDateDue = async(id,due)=>{
   })
 }
 
-const deleteData = async(id)=>{
-  await deleteDoc(doc(db,'client',id));
+const deleteData = async(id,location)=>{
+  await deleteDoc(doc(db,location,id));
 }
 
 const signIn= async(email,password)=>{
@@ -113,17 +116,30 @@ const updateAdminPass=(update,email)=>{
  
 }
 
-const addEmploe=(role,data)=>{
-  setDoc(doc(db, "employe",role ), {
+const addEmploe=async(data)=>{
+ await setDoc(doc(db, "employe",data.userId ), {
    ...data
   }).then((restult) => {
     return true;
   });
+
+
+ 
 }
 
 const adminSignOut=()=>{
  return signOut(auth)
 }
 
+const anotherLogin=async(name,password)=>{
+  const employeData=[];
+  const employeRef = collection(db,'employe');
+  const q = query(employeRef,where('name','==',name),where('password','==',password));
+  const data = await getDocs(q)
+  data.forEach(doc=> employeData.push(doc.data()))
 
-export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue,deleteData,getUpdateData,signIn,updateAdminPass,addEmploe,adminSignOut};
+  return employeData;
+ 
+}
+
+export { addData, getData, getSingleData, imgDb, showData, updatePayment,db,upDateDue,deleteData,getUpdateData,signIn,updateAdminPass,addEmploe,adminSignOut,anotherLogin};

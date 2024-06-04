@@ -3,6 +3,7 @@ import { deleteData, getData, upDateDue } from "./Utility/firebase";
 import { useNavigate } from "react-router-dom";
 import edit from "../assets/edit-6931553_1280-removebg-preview.png";
 import Due from "../assets/hourglass-1425727_1280.png";
+import ShowDetails from "./ShowDetails";
 export default function ShowData() {
   const [data, setData] = useState([]);
 
@@ -109,7 +110,7 @@ export default function ShowData() {
   }, []);
 
   return (
-    <div className="h-[100dvh] overflow-y-auto text-white p-3">
+    <div className="h-[100dvh] overflow-y-auto text-white p-3 relative">
       <h2>Member's Details</h2>
     {!data ? <p>Loading...</p> :  <table className="border-collapse border border-slate-500 table-auto w-full text-center">
         <thead>
@@ -151,8 +152,9 @@ export default function ShowData() {
                     <button
                       className="bg-white w-[40px] h-[40px] flex justify-center items-center rounded-lg"
                       onClick={() => {
-                        deleteData(el.id.toString());
-                        navigate("");
+                        
+
+                         navigate(`/details/${[el.id,el.name]}`);
                       }}
                     >
                       <img src={edit} width={30} />
