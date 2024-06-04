@@ -29,7 +29,7 @@ export default function Login() {
       const data = await signIn(email, password)
       .then((result) => {
         setIsLogin(data=> !data)
-        
+        localStorage.setItem('role','admin');
         
        navigate('/dashboard')
       })
