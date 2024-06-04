@@ -102,7 +102,7 @@ export default function Add() {
           required
           errors={errors?.birth}
         />
-        <div className="flex justify-between ">
+       
           <Input
             type="number"
             label="Fee"
@@ -117,7 +117,7 @@ export default function Add() {
             required
             errors={errors?.birth}
           />
-        </div>
+       
 
         <Input
           type="number"

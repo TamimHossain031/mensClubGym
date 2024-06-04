@@ -53,7 +53,7 @@ useEffect(()=>{
             <tr className='border' key={single}>
               <td className='border capitalize'>{single.name}</td>
               <td className='border capitalize'>{single.role}</td>
-              <td className='border capitalize'>{single.name}</td>
+              <td className='border'>{single.name}</td>
               <td className='border'>{single.password}</td>
               <td className='border'><button onClick={()=>deleteEm(single.userId)}>Delete</button></td>
             </tr>

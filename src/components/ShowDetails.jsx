@@ -22,7 +22,7 @@ export default function ShowDetails() {
   }, []);
 
   return (
-    <section className="w-[100dvw] p-3 border-l-fuchsia-500 h-[100dvw] text-white text-sm">
+    <section className="w-[100dvw] p-3 border-l-fuchsia-500 h-[100dvh] text-white text-sm">
         {show && <p>{show}</p>}
       {!show && (
         <div>
