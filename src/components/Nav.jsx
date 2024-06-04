@@ -3,17 +3,20 @@ import { RiMenuLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import cross from "../assets/icons8-cross-50.png";
 import { adminSignOut } from "./Utility/firebase";
+import {useContext} from 'react';
+import { login } from "../Context";
 export default function Nav() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const user = localStorage.getItem("role");
-  
+  const {addV} = useContext(login);
 
  
 
   const signOut = async () => {
     await adminSignOut().then((res) => {
       localStorage.removeItem("role");
+      addV('');
       setShow(false);
       navigate("/");
     });
