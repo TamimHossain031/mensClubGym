@@ -195,7 +195,7 @@ export default function Add() {
         </label>
 
         <input
-          className="border w-fit m-auto px-4 py-2 rounded-xl mt-4 cursor-pointer"
+          className="border w-fit m-auto px-4 py-2 rounded-xl mt-4 cursor-pointer bg-sky-500"
           type="submit"
           value="Submit"
           ref={btn}

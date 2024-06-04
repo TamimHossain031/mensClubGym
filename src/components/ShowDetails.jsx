@@ -1,6 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import del from '../assets/material-icon-1307676_1280.png'
 import { db, deleteData } from "../components/Utility/firebase";
 export default function ShowDetails() {
   const { id } = useParams();
@@ -32,27 +33,64 @@ export default function ShowDetails() {
             src={data?.downloadURL}
             alt=""
           />
-          <p>Id : {data?.id}</p>
-          <p>Name : {data?.name}</p>
-          <p>Father's Name : {data?.father}</p>
-          <p>Mother's Name : {data?.mother}</p>
-          <p>Date of Birth : {data?.birth}</p>
-          <p>Mobile No : {data?.mobile}</p>
-          <p>Permanent Address : {data?.permanent}</p>
+          <table className='mt-3 border-collapse w-full'>
+            <tr className='border'>
+              <td className='border'>Id :</td>
+              <td className='border'>{data?.id}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Name :</td>
+              <td className='border'>{data?.name}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Father's Name :</td>
+              <td className='border'>{data?.father}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Mother's Name :</td>
+              <td className='border'>{data?.mother}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Date of Birth :</td>
+              <td className='border'>{data?.birth}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Mobile :</td>
+              <td className='border'>{data?.mobile}</td>
+            </tr>
+            
+            <tr className='border'>
+              <td className='border'>Permanent Add :</td>
+              <td className='border'>{data?.permanent}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Course Duration :</td>
+              <td className='border'>{data?.month} month</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Occupation :</td>
+              <td className='border'>{data?.occupation}</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Payment :</td>
+              <td className='border'>{data?.payments.length} month</td>
+            </tr>
+            <tr className='border'>
+              <td className='border'>Due :</td>
+              <td className='border'>{data?.due.length} month</td>
+            </tr>
+          </table>
+         
           <div className="flex justify-between">
             <p>Admission Fee : {data?.Fee} Taka</p>
             <p>Admission Due : {data?.AdmissionDue} Taka</p>
           </div>
 
-          <p>Course Duration : {data?.month} Month</p>
-          <p>Occupation : {data?.occupation}</p>
-          <p>Payments : {data?.payments.length} Months</p>
-          <p>Due : {data?.due.length} Months</p>
           <button
-            className="border px-1 rounded-md float-right"
+            className="mt-2 px-1 rounded-md float-right"
             onClick={deleteUser}
           >
-            Delete
+            <img src={del} className='w-[40px] h-[40px]'/>
           </button>
         </div>
       )}

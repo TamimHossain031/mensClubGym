@@ -1,5 +1,6 @@
 import {useState,useEffect} from  'react';
 import AddEmploye from './AddEmploye';
+import del from '../assets/material-icon-1307676_1280.png'
 import { addEmploe , getData,deleteData} from "./Utility/firebase";
 export default function Dashboard() {
 const [show,setShow]=useState(false);
@@ -55,7 +56,7 @@ useEffect(()=>{
               <td className='border capitalize'>{single.role}</td>
               <td className='border'>{single.name}</td>
               <td className='border'>{single.password}</td>
-              <td className='border'><button onClick={()=>deleteEm(single.userId)}>Delete</button></td>
+              <td className='border'><button onClick={()=>deleteEm(single.userId)}><img className='w-[40px] h-[40px]' src={del}/></button></td>
             </tr>
           ))}
           </tbody>
