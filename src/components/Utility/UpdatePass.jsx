@@ -8,6 +8,7 @@ export default function UpdatePass({ email, handleModal }) {
 
   const updateAdmin = () => {
     updateAdminPass(password,userEmail)
+    handleModal()
      
   };
 
