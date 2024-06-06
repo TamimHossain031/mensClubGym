@@ -149,7 +149,7 @@ export default function ShowData() {
                     case "name":
                       return search.toLowerCase() === ""
                         ? item
-                        : item.name.toLowerCase().includes(search);
+                        : item.name.toLowerCase().includes(search.toLowerCase());
                       break;
                     case "id":
                       return search === ""
