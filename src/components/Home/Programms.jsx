@@ -6,7 +6,7 @@ export default function Programs() {
     { time: 12, amount: 3500 },
   ];
   return (
-    <section className="mt-7 p-5 flex flex-col gap-4">
+    <section className="mt-7 p-5 flex flex-col xl:flex-row justify-center gap-4">
       {program.map((single) => (
         <SingleProgram
           key={single.amount}

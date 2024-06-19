@@ -170,6 +170,7 @@ export default function ShowData() {
                       <td className="border">{el.id}</td>
                       <td>
                         <img
+                          loading='lazy'
                           src={el.downloadURL}
                           className="w-[50px] h-[50px] rounded-full object-cover"
                         />{" "}

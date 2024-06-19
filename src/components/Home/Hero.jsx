@@ -8,7 +8,7 @@ export default function Hero() {
           Unleash your potential at our cutting -edge gym <br></br>Elevate your
           fitness journey
         </p>
-        <button className="bg-sky-500 py-2 px-3 rounded-md uppercase">
+        <button className="bg-sky-500 py-2 px-3 rounded-md uppercase w-fit mx-auto">
           join With Us
         </button>
       </div>
