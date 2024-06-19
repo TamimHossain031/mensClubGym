@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <section className="flex justify-between px-4 py-4">
+    <section className="flex justify-between px-4 py-4 xl:px-[30px]">
       <div className="text-white">
         <h1 className="text-sky-500 text-md">
           {" "}

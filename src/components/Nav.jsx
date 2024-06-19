@@ -23,7 +23,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="px-2 py-5 flex justify-between relative z-10">
+    <nav className="px-2 py-5 flex justify-between relative z-10 xl:px-[30px]">
       <button onClick={() => navigate("/")} className="text-sky-500 text-xl">
         {" "}
         Men<span className="text-white">'</span>s Club{" "}
